@@ -159,13 +159,13 @@ public class TestTaskThree extends AbstractTest {
 
          Field employerRepositoryField = homeControllerClass.getDeclaredField("employerRepository");
          employerRepositoryField.setAccessible(true);
-         employerRepositoryField.set(homeController, skillRepository);
+         employerRepositoryField.set(homeController, employerRepository);
 
          // not needed for verification, but necessary to make sure calling the controller
          // method doesn't throw a NullPointerException
          Field skillRepositoryField = homeControllerClass.getDeclaredField("skillRepository");
          skillRepositoryField.setAccessible(true);
-         skillRepositoryField.set(homeController, employerRepository);
+         skillRepositoryField.set(homeController, skillRepository);
 
          Model model = new ExtendedModelMap();
 
