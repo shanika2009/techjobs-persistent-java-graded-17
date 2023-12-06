@@ -9,6 +9,8 @@ import java.util.List;
 
 @Entity
 public class Skill extends AbstractEntity {
+    @ManyToMany (mappedBy="skills")
+    private final List <Job> jobs = new ArrayList<>();
     @Size(min = 3, max = 2000, message = "Description must be shorter than 2000 characters")
     private String description;
     public Skill (String description){
@@ -16,8 +18,7 @@ public class Skill extends AbstractEntity {
         this.description = description;
     }
 
-    @ManyToMany (mappedBy="skills")
-    private List <Job> jobs = new ArrayList<>();
+
     public Skill(){};
 
     public String getDescription() {
@@ -32,7 +33,4 @@ public class Skill extends AbstractEntity {
         return jobs;
     }
 
-    public void setJobs(List<Job> jobs) {
-        this.jobs = jobs;
-    }
 }

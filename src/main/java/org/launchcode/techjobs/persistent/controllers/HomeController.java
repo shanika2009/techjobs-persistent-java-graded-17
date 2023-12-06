@@ -38,11 +38,10 @@ public class HomeController {
 
     @GetMapping("add")
     public String displayAddJobForm(Model model) {
-
-
-        model.addAttribute("skill", skillRepository.findAll());
-        model.addAttribute("employers", employerRepository.findAll());
         model.addAttribute(new Job());
+        model.addAttribute("employers", employerRepository.findAll());
+        model.addAttribute("skills", skillRepository.findAll());
+
         return "add";
     }
 
@@ -51,7 +50,6 @@ public class HomeController {
                                        Errors errors, Model model, @RequestParam int employerId, @RequestParam List<Integer> skills) {
 
         if (errors.hasErrors()) {
-	    model.addAttribute("title", "Add Job");
             return "add";
         }
 
@@ -70,8 +68,15 @@ public class HomeController {
 
     @GetMapping("view/{jobId}")
     public String displayViewJob(Model model, @PathVariable int jobId) {
-
+        Optional optionalJob = jobRepository.findById(jobId);
+        if(optionalJob.isEmpty()) {
+            Job job = (Job) optionalJob.get();
+            model.addAttribute("job", job);
             return "view";
+        }else{
+            return "redirect:/";
+        }
+
     }
 
 }
